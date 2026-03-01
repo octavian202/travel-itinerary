@@ -1,0 +1,26 @@
+# PostgreSQL with PostGIS for City Break Planner
+# Usage: docker compose up -d
+# Verify PostGIS: docker compose exec db psql -U citybreak -d citybreak -c "SELECT PostGIS_Version();"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: citybreak-db
+    environment:
+      POSTGRES_USER: citybreak
+      POSTGRES_PASSWORD: citybreak
+      POSTGRES_DB: citybreak
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Run PostGIS extension on first startup
+      - ./backend/scripts/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

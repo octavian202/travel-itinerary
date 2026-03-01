@@ -1,0 +1,17 @@
+# Database & ORM (SQLAlchemy 2.0 + GeoAlchemy2)
+sqlalchemy>=2.0
+geoalchemy2
+psycopg2-binary
+
+# API
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# HTTP client (Mapbox, Nominatim)
+httpx>=0.26.0
+
+# AI itinerary generation (OpenAI ChatGPT API)
+openai>=1.0.0
+
+# Environment / config
+python-dotenv>=1.0.0
